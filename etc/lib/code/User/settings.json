@@ -1,0 +1,45 @@
+{
+    "editor.minimap.enabled": false,
+    "editor.fontSize": 10,
+    "workbench.colorTheme": "Atom One Dark",
+    "workbench.iconTheme": "material-icon-theme",
+    "diffEditor.ignoreTrimWhitespace": false,
+    "terminal.integrated.fontFamily": "Noto Mono for Powerline",
+    "julia.executablePath": "/Applications/Julia-1.5.app/contents/resources/julia/bin/julia",
+    "julia.enableTelemetry": true,
+    "markdown-preview-enhanced.breakOnSingleNewLine": false,
+    "latex-workshop.latex.autoBuild.run": "never",
+    "latex-workshop.latex.autoBuild.cleanAndRetry.enabled": false,
+    "editor.suggestSelection": "first",
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+    "files.exclude": {
+        "**/.classpath": true,
+        "**/.project": true,
+        "**/.settings": true,
+        "**/.factorypath": true
+    },
+    "python.languageServer": "Default",
+    "jupyter.alwaysTrustNotebooks": true,
+    "editor.rulers": [
+        80
+    ],
+    "workbench.editorAssociations": {
+        "*.ipynb": "jupyter.notebook.ipynb"
+    },
+    "git.autofetch": true,
+    "bracket-pair-colorizer-2.depreciation-notice": false,
+    "git.confirmSync": false,
+    "[python]": {
+        "editor.tabSize": 4
+    },
+    "[vue]": {
+        "editor.tabSize": 2
+    },
+    "[javascript]": {
+        "editor.tabSize": 2
+    },
+    "terminal.integrated.commandsToSkipShell": [
+        "language-julia.interrupt"
+    ],
+    "julia.symbolCacheDownload": true
+}

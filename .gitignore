@@ -1,0 +1,28 @@
+# ignore all
+/*
+
+# white list
+!/.bashrc
+
+!/.config/
+/.config/*
+!/.config/fish/
+/.config/fish/*
+!/.config/fish/config.fish
+!/.config/fish/fish_plugins
+!/.config/fish/functions/*
+
+!/.gitconfig
+!/.gitignore
+
+!/.tmux.conf
+
+!/.vimrc
+
+!/.zshrc
+
+!/README.md
+
+!/bin/
+
+!/etc/
