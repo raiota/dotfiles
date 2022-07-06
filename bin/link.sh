@@ -1,14 +1,28 @@
 #!/usr/bin/env bash
 set -eu
 
-for f in .??*
-do
-    [[ "$f" == ".git" ]] && continue
-    [[ "$f" == ".gitignore" ]] && continue
-    [[ "$f" == ".DS_Store" ]] && continue
+usage_exit() {
+    echo "Usage: $0 [-p dir] [-t] [-h]"
+    exit 1
+}
 
-    # ==> deploying
-    ln -s $f "~/${f}"
-    # ==> test deploying scripts
-    #ln -s $f "./etc/test/${f}"
-done    
+PLACE=$HOME
+
+while getopts :p:th OPT
+do
+    case $OPT in
+        p)  PLACE=$OPTARG;;
+        t)  PLACE="./etc/test";;
+        h)  usage_exit;;
+        \?) usage_exit;;
+    esac
+done
+
+echo "Start deploying dotfiles on ${PLACE} ? [y/N]"
+read input
+
+if [ $input != 'yes' ] && [ $input != 'YES' ] && [ $input != 'y' ]
+then
+    echo "Terminated."
+    exit 1
+fi

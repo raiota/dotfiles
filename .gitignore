@@ -1,28 +1,33 @@
 # ignore all
-/*
+**/
 
 # white list
-!/.bashrc
 
 !/.config/
-/.config/*
+/.config/**
+
+# ===== fish
 !/.config/fish/
-/.config/fish/*
+/.config/fish/**
 !/.config/fish/config.fish
 !/.config/fish/fish_plugins
 !/.config/fish/functions/
+/.config/fish/functions/**
+!/.config/fish/functions/.gitkeep
 
-!/.gitconfig
-!/.gitignore
-
+# ===== tmux
 !/.tmux.conf
 
+# ===== vim
 !/.vimrc
 
-!/.zshrc
-
-!/README.md
-
+# ===== scripts for installation
 !/bin/
 
+# ===== 
 !/etc/
+
+# ===== other
+!/.gitconfig
+!/.gitignore
+!/README.md
