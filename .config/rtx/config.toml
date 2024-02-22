@@ -1,0 +1,10 @@
+[tools]
+node = "20"
+rust = "stable"
+go = "1.21.3"
+java = "11.0.2"
+terraform = "1.7.3"
+
+[settings]
+legacy_version_file_disable_tools = ["terraform", "packer"]
+
