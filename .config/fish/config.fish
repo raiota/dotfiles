@@ -1,28 +1,10 @@
 set fish_greeting ""
 
-# path
-fish_add_path $HOME/.local/bin
-
-
-# aliases
-
-if type -q eza
-  alias ll "eza -al --git --icons --time-style relative"
-  alias lla "ll -a"
-end
-
-if type -q lazygit
-  alias lg "lazygit"
-end
-
-function cd
-  builtin cd $argv
-
-  if type -q eza
-    lla
-  else
-    ls -al
-  end
+switch (uname)
+case Linux
+  fish_add_path /home/linuxbrew/.linuxbrew/bin
+case Darwin
+  fish_add_path /usr/local/bin
 end
 
 if type -q starship
@@ -30,9 +12,12 @@ if type -q starship
     set -gx STARSHIP_CONFIG ~/.config/starship.toml
 end
 
-# rtx
-rtx activate fish | source
-rtx hook-env -s fish | source  # プラグインのパスを追加する
-rtx complete -s fish | source  # rtxの補完を追加
+if type -q rtx
+  rtx activate fish | source
+  rtx hook-env -s fish | source  # プラグインのパスを追加する
+  rtx complete -s fish | source  # rtxの補完を追加
+end
 
 fzf_configure_bindings --directory=\cf --git_log=\cl --git_status=\cs --processes=\cp
+
+source ~/.config/fish/conf.d/*.fish
