@@ -43,7 +43,7 @@ brew "mecab"
 brew "mecab-ipadic"
 brew "mise"
 brew "mosquitto", restart_service: true
-brew "neovim", args: ["HEAD"]
+brew "neovim"
 brew "nkf"
 brew "openapi-generator"
 brew "openssl@1.1"

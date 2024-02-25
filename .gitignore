@@ -3,6 +3,8 @@
 
 !.bash_profile
 
+!.Brewfile
+
 !.config/alacritty/alacritty.yml
 
 !.config/bat/config
@@ -31,5 +33,9 @@
 !.vimrc
 
 !Brewfile
+
+!Makefile
+
+!script/init.sh
 
 !README.md
