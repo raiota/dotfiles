@@ -12,3 +12,4 @@ deploy:
 		@echo ''
 		@$(foreach val, $(DOTFILES), ln -sfnv $(abspath $(val)) $(HOME)/$(val);)
 		@$(foreach val, $(CONFIGDIRS), ln -sfnv $(abspath $(val)) $(HOME)/$(val);)
+		ln -sfnv $(abspath Brewfile) $(HOME)/Brewfile
