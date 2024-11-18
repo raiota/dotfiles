@@ -21,3 +21,5 @@ end
 fzf_configure_bindings --directory=\cf --git_log=\cl --git_status=\cs --processes=\cp
 
 source ~/.config/fish/conf.d/*.fish
+
+set -gx XDG_CONFIG_HOME ~/.config

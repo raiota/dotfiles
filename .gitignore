@@ -19,6 +19,9 @@
 !.config/nvim/after/plugin/*
 !.config/nvim/lua/*
 !.config/nvim/plugin/*
+!.config/nvim/lua/core/*
+!.config/nvim/lua/plugins/*
+!.config/nvim/lua/extensions/**
 
 !.config/rtx/config.toml
 

@@ -2,6 +2,7 @@
 vim.keymap.set('n', 'U', '<C-r>')
 
 -- Move 10 lines:
+vim.keymap.set('n', 'K', '10<Up>')
 vim.keymap.set('n', 'J', '10<Down>')
 
 -- Separate Window:

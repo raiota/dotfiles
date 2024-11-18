@@ -56,6 +56,8 @@ vim.opt.smartindent = true
 vim.opt.tabstop = 4
 -- 24 ビットカラー
 vim.opt.termguicolors = true
+vim.opt.winblend = 0
+vim.opt.pumblend = 0
 -- 
 vim.opt.title = true
 -- ビープ音に画面フラッシュ
@@ -64,3 +66,12 @@ vim.opt.visualbell = true
 vim.opt.wrap = true
 -- 検索がファイル末尾まで進んだら、ファイル先頭から再び検索
 vim.opt.wrapscan = true
+
+-- 背景を透過
+vim.cmd[[
+  highlight Normal guibg=NONE ctermbg=NONE
+  highlight NonText guibg=NONE ctermbg=NONE
+  highlight LineNr ctermbg=NONE guibg=NONE
+  highlight Folded ctermbg=NONE guibg=NONE
+  highlight EndOfBuffer ctermbg=NONE guibg=NONE
+]]
