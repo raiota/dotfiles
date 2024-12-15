@@ -1,12 +1,5 @@
 #!/bin/bash
 
-# clone dotfiles
-echo '==> Cloning dotfiles...'
-if [ -e ~/dotfiles ]; then
-  rm -rf ~/dotfiles
-fi
-git clone https://github.com/raiota/dotfiles.git ~/dotfiles
-
 # install build-essential
 if [ $(uname) == "Linux" ]; then
   echo '==> Installing build-essential...'
