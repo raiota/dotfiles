@@ -1,0 +1,37 @@
+[alias]
+
+
+[user]
+    name = "raiota"
+    email = "55177892+raiota@users.noreply.github.com"
+
+    [includeIf "gitdir:~/repos/works"]
+        path = ~/repos/works/.gitconfig
+
+[core]
+    editor = nvim
+    filemode = true
+    ignorecase = false
+    pager = delta
+    quotepath = false
+
+[color]
+    ui = true
+
+[init]
+    defaultBranch = main
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    navigate = true
+
+[merge]
+    conflictstyle = zdiff3
+
+[ghq]
+    root = ~/repos/personal
+
+[include]
+    path = ~/.gitconfig.ghq
