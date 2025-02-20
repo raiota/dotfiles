@@ -1,0 +1,5 @@
+[tools]
+bun = "1.2.0"
+deno = "2.1.6"
+go = "1.22"
+node = "lts"
