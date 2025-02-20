@@ -5,7 +5,7 @@
     name = "raiota"
     email = "55177892+raiota@users.noreply.github.com"
 
-    [includeIf "gitdir:~/repos/works"]
+    [includeIf "gitdir:~/repos/works/"]
         path = ~/repos/works/.gitconfig
 
 [core]
