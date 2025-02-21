@@ -1,0 +1,24 @@
+theme = carbonfox
+
+font-family = "Moralerspace Argon HWNF"
+font-feature = -calt
+font-feature = -liga
+font-feature = -dlig
+
+font-size = 13
+
+macos-titlebar-style = hidden
+
+background-opacity = 0.8
+background-blur-radius = 20
+
+window-padding-x = 15
+window-padding-y = 15
+window-padding-balance = true
+
+quick-terminal-position = "center"
+quick-terminal-screen = "main"
+quick-terminal-animation-duration = 0
+
+
+keybind = global:command+space=toggle_quick_terminal
