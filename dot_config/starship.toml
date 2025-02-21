@@ -1,0 +1,78 @@
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# Inserts a blank line between shell prompts
+add_newline = true
+
+format = """
+${custom.git_repo}\
+$directory\
+$git_status\
+$git_branch\
+$git_commit\
+$git_state\
+$jobs\
+$status\
+$cmd_duration\
+$line_break\
+$character\
+"""
+
+# Replace the '❯' symbol in the prompt with '➜'
+[character]
+#success_symbol = '[➜](bold green)' # The 'success_symbol' segment is being set to '➜' with the color 'bold green'
+success_symbol = '[󱞪 ](green)'
+error_symbol = '[ ](red)'
+
+# Disable the package module, hiding it from the prompt completely
+[package]
+disabled = true
+
+[directory]
+truncate_to_repo = true
+truncation_length = 100
+format = '[$path ]($style)[$read_only]($read_only_style)'
+style = 'bold blue'
+repo_root_format = '[($path )]($repo_root_style)[$read_only]($read_only_style)[-](black) '
+repo_root_style = 'blue'
+
+[custom.git_repo]
+when = true
+require_repo = true
+command = 'git rev-parse --show-toplevel | sed -E "s|^$(ghq root)/||;s|^github\.com/||"'
+style = "bold blue"
+
+[git_status]
+format = '([$all_status$ahead_behind]($style) )'
+conflicted= '[= ](red)'
+ahead = '[⇡$ahead_count ](red)'
+behind = '[⇣$behind_count ](cyan)'
+modified = '[ ](yellow)'
+deleted = '[󱎘 ](red)'
+untracked = '[ ](red)'
+staged = '[󰸞 ](green)'
+stashed ='[󰉀 ](cyan)'
+
+[git_state]
+format = '[$state( $progress_current/$progress_total)]($style) '
+style = 'bold red'
+
+[git_branch]
+format = '[-](black) [$symbol ](bold purple)[$branch(:$remote_branch) ](bold purple)'
+symbol = ''
+style = 'bold purple'
+
+[jobs]
+number_threshold = 1
+style = 'purple'
+
+[status]
+format = '[[-](black) $status( SIG$signal_name)]($style) '
+disabled = false
+style = 'red'
+
+[cmd_duration]
+format = '[[-](black) 󱦟 $duration]($style) '
+style = 'yellow'
+min_time = 10_000
+
