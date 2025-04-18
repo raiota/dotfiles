@@ -1,5 +1,11 @@
 # dotfiles
 
+## Setup
+
+1. Install [Homebrew — The Missing Package Manager for macOS (or Linux)](https://brew.sh/)
+2. `brew install gcc git chezmoi`
+3. `chezmoi init raiota`
+
 ## Initial git setup
 
 When using dotfiles for work, perform the following initial setup.
