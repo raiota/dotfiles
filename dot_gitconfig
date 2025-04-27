@@ -26,6 +26,8 @@
 
 [delta]
     navigate = true
+    features = catppuccin-mocha
+    side-by-side = true
 
 [merge]
     conflictstyle = zdiff3
@@ -35,3 +37,4 @@
 
 [include]
     path = ~/.gitconfig.ghq
+    path = ~/.config/delta/themes/catppuccin.gitconfig
