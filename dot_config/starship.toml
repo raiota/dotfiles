@@ -41,7 +41,7 @@ repo_root_style = 'blue'
 [custom.git_repo]
 when = true
 require_repo = true
-command = 'git rev-parse --show-toplevel | sed -E "s|^$(ghq root)/||;s|^github\.com/||"'
+command = 'git rev-parse --show-toplevel | sed -e "s,$(ghq root)/\(github\.com/\)\?,,"'
 style = "bold blue"
 
 [git_status]
