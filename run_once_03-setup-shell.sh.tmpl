@@ -5,8 +5,10 @@ if ! command -v fish > /dev/null 2>&1; then
   exit 1
 fi
 
+{{- if not (env "CI") }}
 echo $(command -v fish) | sudo tee -a /etc/shells
 chsh -s $(command -v fish)
+{{- end }}
 
 fisher update
 

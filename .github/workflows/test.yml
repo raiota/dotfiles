@@ -1,0 +1,27 @@
+name: test
+
+on:
+  - workflow_dispatch
+
+env:
+  WORK_GIT_USERNAME: Test User
+  WORK_GIT_EMAIL: test@example.com
+  CI: "true"
+
+jobs:
+  test-on-macos:
+    name: test on MacOS
+    runs-on: macos-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install dotfiles
+        run: sh -c "$(curl -fsLS chezmoi.io/get)" -- init --apply -S .
+  test-on-ubuntu:
+    name: test on Ubuntu
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install dotfiles
+        run: sh -c "$(curl -fsLS chezmoi.io/get)" -- init --apply -S .
