@@ -10,7 +10,7 @@ echo $(command -v fish) | sudo tee -a /etc/shells
 chsh -s $(command -v fish)
 {{- end }}
 
-fisher update
+fish -c 'fisher update'
 
 exit 0
 
