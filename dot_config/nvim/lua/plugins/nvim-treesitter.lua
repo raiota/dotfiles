@@ -1,0 +1,40 @@
+return {
+	"nvim-treesitter/nvim-treesitter",
+	build = ":TSUpdate",
+	lazy = false,
+	--event = "UIEnter",
+	dependencies = {
+		"nvim-treesitter/nvim-treesitter-textobjects",
+	},
+	config = function()
+		local configs = require("nvim-treesitter.configs")
+
+		configs.setup({
+			ensure_installed = "all",
+			ignore_install = { "ipkg" },
+			highlight = { enable = true },
+			auto_install = false,
+			textobjects = {
+				select = {
+					enable = true,
+					lookahead = true,
+					keymaps = {
+						["af"] = "@function.outer",
+						["if"] = "@function.inner",
+						["ac"] = "@class.outer",
+						["ic"] = "@class.inner",
+						["ab"] = "@block.outer",
+						["ib"] = "@block.inner",
+						["al"] = "@call.outer",
+						["il"] = "@call.inner",
+						["aP"] = "@parameter.outer",
+						["iP"] = "@parameter.inner",
+						["ao"] = "@conditional.outer",
+						["io"] = "@conditional.inner",
+						["as"] = "@statement.outer",
+					},
+				},
+			},
+		})
+	end,
+}
