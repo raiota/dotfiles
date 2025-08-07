@@ -1,9 +1,3 @@
-{{ if eq .chezmoi.os "darwin" }}
-fish_add_path /user/local/bin
-{{ else if eq .chezmoi.os "linux" }}
-fish_add_path /home/linuxbrew/.linuxbrew/bin
-{{ end }}
-
 # Alias
 alias ll "eza -al --git --icons --time-style relative"
 alias lla "ll -a"
@@ -19,21 +13,22 @@ function cd
 end
 
 # Setup Tools
-command -v starship > /dev/null; and source (starship init fish | psub)
+command -v starship > /dev/null; and starship init fish | source
 if type -q fzf_configure_bindings
     fzf_configure_bindings --directory=\cf --git_log=\cl --git_status=\cs --processes=\cp
 end
 
 # Paths
-
+#   * uv
+fish_add_path "/Users/toa34886/.local/bin"
 
 # Environment Variables
+set -g theme_color_scheme "Catppuccin Mocha"
 set -gx XDG_CONFIG_HOME ~/.config
 set fzf_preview_dir_cmd lla --color=always
 set fzf_fd_opts --no-ignore
 set fzf_diff_highlighter delta --paging=never --width=20
 set fzf_history_time_format %a %Y-%m-%d %H:%M
-set -g  GHQ_SELECTOR fzf
-# https://github.com/tmuxinator/tmuxinator?tab=readme-ov-file#editor-and-shell
-set -g EDITOR nvim
-set -g theme_color_scheme "Catppuccin Mocha"
+set -g GHQ_SELECTOR fzf
+set -g EZA_CONFIG_DIR ~/.config/eza
+
