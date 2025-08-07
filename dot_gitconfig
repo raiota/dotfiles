@@ -33,6 +33,9 @@
     conflictstyle = zdiff3
 
 [ghq]
+    root = ~/repos/read
+
+[ghq "https://github.com/raiota"]
     root = ~/repos/personal
 
 [include]
