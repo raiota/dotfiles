@@ -1,11 +1,11 @@
 theme = carbonfox
 
-font-family = "Moralerspace Neon HWNF"
+font-family = "UDEV Gothic NF"
 font-feature = -calt
 font-feature = -liga
 font-feature = -dlig
 
-font-size = 13
+font-size = 12
 
 macos-titlebar-style = hidden
 
