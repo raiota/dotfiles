@@ -1,0 +1,64 @@
+#!/bin/bash
+
+{{ if eq .chezmoi.os "darwin" }}
+# ==========================
+# Dock
+# ==========================
+
+defaults write com.apple.dock tilesize -int 24
+defaults write com.apple.dock largesize -int 48
+defaults write com.apple.dock magnification -bool true
+defaults write com.apple.dock orientation -string "right"
+defaults write com.apple.dock autohide -bool true
+defaults write com.apple.dock show-recents -bool false
+
+# ==========================
+# Finder
+# ==========================
+
+# show hidden files by default
+defaults write com.apple.finder AppleShowAllFiles -bool true
+
+# show files with their extensions
+defaults write NSGlobalDomain AppleShowAllExtensions -bool true
+
+# don't make .DS_Store files
+defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+
+# show all extensions
+defaults write -g AppleShowAllExtensions -bool true
+
+# display the status bar on Finder
+defaults write com.apple.finder ShowStatusBar -bool true
+
+# display the path bar in Finder
+defaults write com.apple.finder ShowPathbar -bool true
+
+# ==========================
+# Keyboard
+# ==========================
+
+defaults write -g "NSAutomaticCapitalizationEnabled" -bool false
+
+# don't add periods when typing double spaces
+defaults write -g "NSAutomaticPeriodSubstitutionEnabled" -bool false
+
+# disable correcting spellings
+defaults write -g NSAutomaticSpellingCorrectionEnabled -bool false
+defaults write -g NSAutomaticPeriodSubstitutionEnabled -bool false
+defaults write -g NSAutomaticDashSubstitutionEnabled -bool false
+defaults write -g NSAutomaticQuoteSubstitutionEnabled -bool false
+
+
+# ==========================
+# Apply Setting
+# ==========================
+
+for app in "Dock" \
+	"Finder" \
+	"SystemUIServer"; do
+	killall "${app}" &>/dev/null
+done
+{{ end }}
+
+exit 0

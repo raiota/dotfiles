@@ -1,0 +1,57 @@
+#!/bin/bash
+set -e
+
+echo "configuring git directories..."
+REPOS_DIR="$HOME/repos"
+if [ ! -d ${REPOS_DIR} ]; then
+  mkdir -p ${REPOS_DIR}
+fi
+
+PERSONAL_REPOS_DIR="$REPOS_DIR/personal"
+READ_REPOS_DIR="$REPOS_DIR/read"
+WORK_REPOS_DIR="$REPOS_DIR/work"
+
+for dir in "${PERSONAL_REPOS_DIR}" "${READ_REPOS_DIR}" "${WORK_REPOS_DIR}"; do
+  if [ ! -d ${dir} ]; then
+    mkdir -p ${dir}
+  fi
+done
+
+echo "setting up your work git config..."
+WORK_GITCONFIG="$WORK_REPOS_DIR/.gitconfig"
+if [ ! -f "$WORK_GITCONFIG" ]; then
+    if [ -z "$WORK_GIT_USERNAME" ]; then
+        read -p "your work username: " WORK_GIT_USERNAME
+    fi
+
+    if [ -z "$WORK_GIT_EMAIL" ]; then
+        read -p "your work email: " WORK_GIT_EMAIL
+    fi
+
+    cat > $WORK_GITCONFIG << EOF
+[user]
+  name = "${WORK_GIT_USERNAME}"
+  email = "${WORK_GIT_EMAIL}"
+
+[credential]
+  helper =
+  helper = /usr/local/share/gcm-core/git-credential-manager
+
+[credential "https://dev.azure.com"]
+  useHttpPath = true
+
+[credential "https://github.com"]
+  useHttpPath = true
+EOF
+fi
+
+echo "generating ghq config..."
+GHQ_CONFIG="$HOME/.gitconfig.ghq"
+if [ ! -f "$GHQ_CONFIG" ]; then
+    cat > $GHQ_CONFIG << EOF
+# [ghq "https://github.com/my-work-org"]
+#     root = ~/repos/work
+EOF
+fi
+
+exit 0

@@ -1,0 +1,14 @@
+#!/bin/bash
+
+if ! command -v fish > /dev/null 2>&1; then
+  echo "Fish shell is not installed."
+  exit 1
+fi
+
+echo $(command -v fish) | sudo tee -a /etc/shells
+chsh -s $(command -v fish)
+
+fisher update
+
+exit 0
+
