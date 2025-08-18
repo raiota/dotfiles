@@ -12,15 +12,14 @@ function cd
   end
 end
 
-# Setup Tools
-command -v starship > /dev/null; and starship init fish | source
-if type -q fzf_configure_bindings
-    fzf_configure_bindings --directory=\cf --git_log=\cl --git_status=\cs --processes=\cp
-end
-
 # Paths
 #   * uv
 fish_add_path "/Users/toa34886/.local/bin"
+#   * Homebrew
+{{ if eq .chezmoi.os "linux" }}
+test -d ~/.linuxbrew; and eval (~/.linuxbrew/bin/brew shellenv)
+test -d /home/linuxbrew/.linuxbrew; and eval (/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+{{ end }}
 
 # Environment Variables
 set -g theme_color_scheme "Catppuccin Mocha"
@@ -32,3 +31,8 @@ set fzf_history_time_format %a %Y-%m-%d %H:%M
 set -g GHQ_SELECTOR fzf
 set -g EZA_CONFIG_DIR ~/.config/eza
 
+# Setup Tools
+command -v starship > /dev/null; and starship init fish | source
+if type -q fzf_configure_bindings
+    fzf_configure_bindings --directory=\cf --git_log=\cl --git_status=\cs --processes=\cp
+end
