@@ -8,8 +8,13 @@ return {
 				mode = { "n", "v" },
 				{
 					"<leader>a",
-					group = "CopilotChat",
+					group = "Copilot Chat",
 					icon = { icon = "" },
+				},
+				{
+					"<leader>c",
+					group = "Claude Code",
+					icon = { icon = "󰛄" },
 				},
 				{ "<leader>l", group = "LSP" },
 				{
