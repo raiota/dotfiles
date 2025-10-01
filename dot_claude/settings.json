@@ -9,15 +9,15 @@
       "Bash(git init:*)",
       "Bash(git add:*)",
       "Bash(git commit:*)",
-      "Bash(git push origin*:*)",
+      "Bash(git push origin:*::*)",
       "Bash(git status:*)",
       "Bash(git diff:*)",
       "Bash(git log:*)",
       "Bash(npm install:*)",
       "Bash(pnpm install:*)",
-      "Bash(rm *)",
+      "Bash(rm:*)",
       "Bash(ls:*)",
-      "Bash(cat **)",
+      "Bash(cat :*:*)",
       "Bash(osascript -e:*)",
       "mcp__context7__resolve-library-id",
       "mcp__context7__get-library-docs"
@@ -40,4 +40,3 @@
   "preferredNotifChannel": "auto",
   "enableAllProjectMcpServers": false
 }
-
