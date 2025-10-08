@@ -7,7 +7,7 @@ font-feature = -dlig
 
 font-size = 12
 
-macos-titlebar-style = hidden
+macos-titlebar-style = tabs
 
 background-opacity = 0.8
 background-blur-radius = 20
@@ -20,5 +20,4 @@ quick-terminal-position = "center"
 quick-terminal-screen = "main"
 quick-terminal-animation-duration = 0
 
-
-keybind = global:command+space=toggle_quick_terminal
+keybind = global:command+space=toggle_visibility
