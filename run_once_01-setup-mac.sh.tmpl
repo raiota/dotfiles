@@ -52,6 +52,8 @@ defaults write -g NSAutomaticQuoteSubstitutionEnabled -bool false
 # changes default "、" to "．" and "。" to "．"
 defaults write com.apple.inputmethod.Kotoeri JIMPrefPunctuationTypeKey -int 3
 
+# live conversion
+defaults write com.apple.inputmethod.Kotoeri 'LiveConversion' -bool false
 
 # ==========================
 # Apply Setting
