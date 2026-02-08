@@ -2,11 +2,12 @@
 
 
 [user]
-    name = "raiota"
-    email = "55177892+raiota@users.noreply.github.com"
+    [includeIf "gitdir:~/repos/mine/"]
+        name = "raiota"
+        email = "55177892+raiota@users.noreply.github.com"
 
-    [includeIf "gitdir:~/repos/works/"]
-        path = ~/repos/works/.gitconfig
+    [includeIf "gitdir:~/repos/work/"]
+        path = ~/repos/work/.gitconfig
 
 [core]
     editor = nvim
@@ -33,7 +34,7 @@
     conflictstyle = zdiff3
 
 [ghq]
-    root = ~/repos/read
+    root = ~/repos/ref
 
 [ghq "https://github.com/raiota"]
     root = ~/repos/personal

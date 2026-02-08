@@ -7,11 +7,11 @@ if [ ! -d ${REPOS_DIR} ]; then
   mkdir -p ${REPOS_DIR}
 fi
 
-PERSONAL_REPOS_DIR="$REPOS_DIR/personal"
-READ_REPOS_DIR="$REPOS_DIR/read"
+mine_REPOS_DIR="$REPOS_DIR/mine"
+ref_REPOS_DIR="$REPOS_DIR/ref"
 WORK_REPOS_DIR="$REPOS_DIR/work"
 
-for dir in "${PERSONAL_REPOS_DIR}" "${READ_REPOS_DIR}" "${WORK_REPOS_DIR}"; do
+for dir in "${mine_REPOS_DIR}" "${ref_REPOS_DIR}" "${WORK_REPOS_DIR}"; do
   if [ ! -d ${dir} ]; then
     mkdir -p ${dir}
   fi
@@ -32,16 +32,6 @@ if [ ! -f "$WORK_GITCONFIG" ]; then
 [user]
   name = "${WORK_GIT_USERNAME}"
   email = "${WORK_GIT_EMAIL}"
-
-[credential]
-  helper =
-  helper = /usr/local/share/gcm-core/git-credential-manager
-
-[credential "https://dev.azure.com"]
-  useHttpPath = true
-
-[credential "https://github.com"]
-  useHttpPath = true
 EOF
 fi
 
