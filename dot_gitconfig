@@ -37,7 +37,7 @@
     root = ~/repos/ref
 
 [ghq "https://github.com/raiota"]
-    root = ~/repos/personal
+    root = ~/repos/mine
 
 [include]
     path = ~/.gitconfig.ghq
