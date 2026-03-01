@@ -14,7 +14,7 @@ end
 
 # Paths
 #   * uv
-fish_add_path "/Users/toa34886/.local/bin"
+fish_add_path "{{ .chezmoi.homeDir }}/.local/bin"
 #   * Homebrew
 {{ if eq .chezmoi.os "linux" }}
 test -d ~/.linuxbrew; and eval (~/.linuxbrew/bin/brew shellenv)
@@ -22,14 +22,15 @@ test -d /home/linuxbrew/.linuxbrew; and eval (/home/linuxbrew/.linuxbrew/bin/bre
 {{ end }}
 
 # Environment Variables
-set -g theme_color_scheme "Catppuccin Mocha"
+set -gx theme_color_scheme "Catppuccin Mocha"
 set -gx XDG_CONFIG_HOME ~/.config
 set fzf_preview_dir_cmd lla --color=always
 set fzf_fd_opts --no-ignore
 set fzf_diff_highlighter delta --paging=never --width=20
 set fzf_history_time_format %a %Y-%m-%d %H:%M
-set -g GHQ_SELECTOR fzf
-set -g EZA_CONFIG_DIR ~/.config/eza
+set -gx GHQ_SELECTOR fzf
+set -gx EZA_CONFIG_DIR ~/.config/eza
+set -gx CLAUDE_CONFIG_DIR ~/.config/claude
 
 # Setup Tools
 command -v starship > /dev/null; and starship init fish | source
