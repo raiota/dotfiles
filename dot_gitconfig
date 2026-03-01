@@ -2,12 +2,11 @@
 
 
 [user]
-    [includeIf "gitdir:~/repos/mine/"]
-        name = "raiota"
-        email = "55177892+raiota@users.noreply.github.com"
+    name = raiota
+    email = 55177892+raiota@users.noreply.github.com
 
-    [includeIf "gitdir:~/repos/work/"]
-        path = ~/repos/work/.gitconfig
+[includeIf "gitdir:~/repos/work/"]
+    path = ~/repos/work/.gitconfig
 
 [core]
     editor = nvim
