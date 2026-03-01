@@ -78,6 +78,9 @@ return {
 						"progress",
 					},
 					{
+						"location",
+					},
+					{
 						"searchcount",
 						icon = "",
 					},
@@ -117,9 +120,6 @@ return {
 					{
 						"o:encoding",
 						cond = conditions.hide_in_width,
-					},
-					{
-						"location",
 					},
 				},
 			},

@@ -6,10 +6,10 @@ return {
 		lazy = false,
 		opts = function()
 			return {
-				flavour = "mocha",
+				flavour = "macchiato",
 				transparent_background = true,
 				float = {
-					transparent = true,
+					transparent = false,
 					solid = true,
 				},
 				show_end_of_buffer = true,
@@ -46,6 +46,20 @@ return {
 					--leap = true,
 					lsp_saga = true,
 					--lsp_trouble = true,
+					lualine = {
+						all = function(colors)
+							local solid = { bg = colors.mantle }
+							return {
+								normal = { c = solid, x = solid },
+								insert = { c = solid, x = solid },
+								visual = { c = solid, x = solid },
+								replace = { c = solid, x = solid },
+								command = { c = solid, x = solid },
+								terminal = { c = solid, x = solid },
+								inactive = { c = solid, x = solid },
+							}
+						end,
+					},
 					--mason = true,
 					--markdown = true,
 					--mini = true,
