@@ -17,7 +17,7 @@ function module.apply_to_config(config)
 		active_titlebar_bg = "none",
 	}
 	config.window_background_opacity = 0.9
-	config.text_background_opacity = 0.5
+	config.text_background_opacity = 1.0
 	config.macos_window_background_blur = 10
 	config.win32_system_backdrop = "Acrylic"
 
