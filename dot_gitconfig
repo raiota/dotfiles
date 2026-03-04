@@ -8,6 +8,9 @@
 [includeIf "gitdir:~/repos/work/"]
     path = ~/repos/work/.gitconfig
 
+[credential]
+    helper = !gh auth git-credential
+
 [core]
     editor = nvim
     filemode = true
