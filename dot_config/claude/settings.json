@@ -97,6 +97,9 @@
       }
     ]
   },
+  "enabledPlugins": {
+    "skill-creator@claude-plugins-official": true
+  },
   "outputStyle": "Explanatory",
   "language": "ja",
   "alwaysThinkingEnabled": true,
