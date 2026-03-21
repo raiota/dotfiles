@@ -29,7 +29,7 @@
 
 [delta]
     navigate = true
-    features = catppuccin-mocha
+    features = catppuccin-macchiato
     side-by-side = true
 
 [merge]

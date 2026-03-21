@@ -23,7 +23,7 @@ test -d /home/linuxbrew/.linuxbrew; and eval (/home/linuxbrew/.linuxbrew/bin/bre
 {{ end }}
 
 # Environment Variables
-set -gx theme_color_scheme "Catppuccin Mocha"
+set -gx theme_color_scheme "Catppuccin Macchiato"
 set -gx XDG_CONFIG_HOME ~/.config
 set fzf_preview_dir_cmd lla --color=always
 set fzf_fd_opts --no-ignore
@@ -32,6 +32,13 @@ set fzf_history_time_format %a %Y-%m-%d %H:%M
 set -gx GHQ_SELECTOR fzf
 set -gx EZA_CONFIG_DIR ~/.config/eza
 set -gx CLAUDE_CONFIG_DIR ~/.config/claude
+
+set -gx FZF_DEFAULT_OPTS "\
+--color=bg+:#363A4F,bg:#24273A,spinner:#F4DBD6,hl:#ED8796 \
+--color=fg:#CAD3F5,header:#ED8796,info:#C6A0F6,pointer:#F4DBD6 \
+--color=marker:#B7BDF8,fg+:#CAD3F5,prompt:#C6A0F6,hl+:#ED8796 \
+--color=selected-bg:#494D64 \
+--color=border:#6E738D,label:#CAD3F5"
 
 # Setup Tools
 command -v starship > /dev/null; and starship init fish | source

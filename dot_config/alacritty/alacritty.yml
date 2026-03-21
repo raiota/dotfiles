@@ -12,7 +12,7 @@ import:
   #  - /path/to/alacritty.yml
   #  - ~/.config/alacritty/themes/themes/tomorrow_night.yaml
   #- ~/.local/share/alacritty/nord-alacritty/src/nord.yml
-  - ~/.local/share/alacritty/themes/themes/nightfox.yaml
+  - ~/.local/share/alacritty/themes/themes/catppuccin-macchiato.toml
 
 # Any items in the `env` entry below will be added as
 # environment variables. Some entries may override variables
