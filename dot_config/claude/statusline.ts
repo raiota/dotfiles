@@ -23,18 +23,22 @@ interface StatusInput {
 }
 
 const RESET = "\x1b[0m";
-const GREEN = "\x1b[32m";
-const YELLOW = "\x1b[33m";
-const RED = "\x1b[31m";
 
-// Braille characters from empty → full
-const BRAILLE = ["⣀", "⣄", "⣤", "⣶", "⣿"] as const;
+// Braille characters from empty → full (8 levels, Pattern 5)
+const BRAILLE = [" ", "⣀", "⣄", "⣤", "⣦", "⣶", "⣷", "⣿"] as const;
 const BAR_WIDTH = 10;
 
+/** RGB color gradient: green (0%) → yellow (50%) → red (100%) */
 function getColor(pct: number): string {
-  if (pct < 50) return GREEN;
-  if (pct < 75) return YELLOW;
-  return RED;
+  let r: number, g: number;
+  if (pct < 50) {
+    r = Math.round(pct * 5.1);
+    g = 255;
+  } else {
+    r = 255;
+    g = Math.round(200 - (pct - 50) * 4);
+  }
+  return `\x1b[38;2;${r};${g};0m`;
 }
 
 function brailleBar(pct: number): string {
