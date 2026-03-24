@@ -103,5 +103,9 @@
   "outputStyle": "Explanatory",
   "language": "ja",
   "alwaysThinkingEnabled": true,
-  "showTurnDuration": true
+  "showTurnDuration": true,
+  "statusLine": {
+    "type": "command",
+    "command": "bun ~/.config/claude/statusline.ts"
+  }
 }
