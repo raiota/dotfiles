@@ -4,7 +4,7 @@
  * Claude Code Statusline - Pattern 5: Braille Dots
  *
  * Displays rate limit usage (5h / 7d windows) as braille dot progress bars
- * with color gradients: green (0-49%) → yellow (50-74%) → red (75-100%)
+ * with color gradients. Based on the original Pattern 5 by @gyakuse.
  *
  * Usage in settings.json:
  *   "statusLine": { "type": "command", "command": "bun ~/.config/claude/statusline.ts" }
@@ -23,43 +23,38 @@ interface StatusInput {
 }
 
 const RESET = "\x1b[0m";
-
-// Braille characters from empty → full (8 levels, Pattern 5)
-const BRAILLE = [" ", "⣀", "⣄", "⣤", "⣦", "⣶", "⣷", "⣿"] as const;
-const BAR_WIDTH = 10;
-
-/** RGB color gradient: green (0%) → yellow (50%) → red (100%) */
-function getColor(pct: number): string {
-  let r: number, g: number;
-  if (pct < 50) {
-    r = Math.round(pct * 5.1);
-    g = 255;
-  } else {
-    r = 255;
-    g = Math.round(200 - (pct - 50) * 4);
-  }
-  return `\x1b[38;2;${r};${g};0m`;
-}
-
 const DIM = "\x1b[2m";
 
-/** Build bar by chaining individually-colored braille chars */
+// 8 braille characters: index 0 (empty/space) → index 7 (full ⣿)
+const BRAILLE = " ⣀⣄⣤⣦⣶⣷⣿";
+const BAR_WIDTH = 8;
+
+/** RGB color gradient matching original: green (0%) → yellow (50%) → red (100%) */
+function gradient(pct: number): string {
+  if (pct < 50) {
+    const r = Math.floor(pct * 5.1);
+    return `\x1b[38;2;${r};200;80m`;
+  } else {
+    const g = Math.max(Math.floor(200 - (pct - 50) * 4), 0);
+    return `\x1b[38;2;255;${g};60m`;
+  }
+}
+
+/** Build braille bar using seg_start/seg_end approach (matches original algorithm) */
 function brailleBar(pct: number): string {
   const clamped = Math.min(Math.max(pct, 0), 100);
-  const filled = (clamped / 100) * BAR_WIDTH;
-  const fullBlocks = Math.floor(filled);
-  const partial = filled - fullBlocks;
-
+  const level = clamped / 100;
   let bar = "";
   for (let i = 0; i < BAR_WIDTH; i++) {
-    const positionPct = ((i + 1) / BAR_WIDTH) * 100;
-    if (i < fullBlocks) {
-      bar += `${getColor(positionPct)}⣿${RESET}`;
-    } else if (i === fullBlocks && partial > 0) {
-      const idx = Math.round(partial * (BRAILLE.length - 2));
-      bar += `${getColor(positionPct)}${BRAILLE[idx]}${RESET}`;
+    const segStart = i / BAR_WIDTH;
+    const segEnd = (i + 1) / BAR_WIDTH;
+    if (level >= segEnd) {
+      bar += BRAILLE[7]; // fully filled: ⣿
+    } else if (level <= segStart) {
+      bar += BRAILLE[0]; // empty: space
     } else {
-      bar += `${DIM}⣀${RESET}`;
+      const frac = (level - segStart) / (segEnd - segStart);
+      bar += BRAILLE[Math.min(Math.floor(frac * 7), 7)]; // partial
     }
   }
   return bar;
@@ -71,6 +66,13 @@ function formatResetTime(resetsAt: number): string {
   const h = Math.floor(remaining / 3600);
   const m = Math.floor((remaining % 3600) / 60);
   return h > 0 ? `${h}h${m}m` : `${m}m`;
+}
+
+/** Format one rate-limit segment: [DIM label RESET] [color bar RESET] pct% [time] */
+function fmt(label: string, pct: number, resetsAt?: number): string {
+  const p = Math.round(pct);
+  const time = resetsAt ? ` ${formatResetTime(resetsAt)}` : "";
+  return `${DIM}${label}${RESET} ${gradient(pct)}${brailleBar(pct)}${RESET} ${p}%${time}`;
 }
 
 const raw = await Bun.stdin.text();
@@ -85,22 +87,16 @@ try {
 const rl = data.rate_limits;
 if (!rl) process.exit(0);
 
-const lines: string[] = [];
+const parts: string[] = [];
 
 if (rl.five_hour != null) {
-  const pct = rl.five_hour.used_percentage ?? 0;
-  const bar = brailleBar(pct);
-  const time = rl.five_hour.resets_at ? ` ${formatResetTime(rl.five_hour.resets_at)}` : "";
-  lines.push(`5h ${bar} ${getColor(pct)}${Math.round(pct)}%${time}${RESET}`);
+  parts.push(fmt("5h", rl.five_hour.used_percentage ?? 0, rl.five_hour.resets_at));
 }
 
 if (rl.seven_day != null) {
-  const pct = rl.seven_day.used_percentage ?? 0;
-  const bar = brailleBar(pct);
-  const time = rl.seven_day.resets_at ? ` ${formatResetTime(rl.seven_day.resets_at)}` : "";
-  lines.push(`7d ${bar} ${getColor(pct)}${Math.round(pct)}%${time}${RESET}`);
+  parts.push(fmt("7d", rl.seven_day.used_percentage ?? 0, rl.seven_day.resets_at));
 }
 
-if (lines.length > 0) {
-  process.stdout.write(lines.join("\n") + "\n");
+if (parts.length > 0) {
+  process.stdout.write(parts.join("\n") + "\n");
 }
