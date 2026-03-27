@@ -41,6 +41,9 @@ function getColor(pct: number): string {
   return `\x1b[38;2;${r};${g};0m`;
 }
 
+const DIM = "\x1b[2m";
+
+/** Build bar by chaining individually-colored braille chars */
 function brailleBar(pct: number): string {
   const clamped = Math.min(Math.max(pct, 0), 100);
   const filled = (clamped / 100) * BAR_WIDTH;
@@ -49,14 +52,14 @@ function brailleBar(pct: number): string {
 
   let bar = "";
   for (let i = 0; i < BAR_WIDTH; i++) {
+    const positionPct = ((i + 1) / BAR_WIDTH) * 100;
     if (i < fullBlocks) {
-      bar += "⣿";
+      bar += `${getColor(positionPct)}⣿${RESET}`;
     } else if (i === fullBlocks && partial > 0) {
-      // Map partial fraction to intermediate braille chars (excluding last "⣿")
       const idx = Math.round(partial * (BRAILLE.length - 2));
-      bar += BRAILLE[idx];
+      bar += `${getColor(positionPct)}${BRAILLE[idx]}${RESET}`;
     } else {
-      bar += "⣀";
+      bar += `${DIM}⣀${RESET}`;
     }
   }
   return bar;
@@ -86,18 +89,16 @@ const lines: string[] = [];
 
 if (rl.five_hour != null) {
   const pct = rl.five_hour.used_percentage ?? 0;
-  const color = getColor(pct);
   const bar = brailleBar(pct);
   const time = rl.five_hour.resets_at ? ` ${formatResetTime(rl.five_hour.resets_at)}` : "";
-  lines.push(`${color}5h ${bar} ${Math.round(pct)}%${time}${RESET}`);
+  lines.push(`5h ${bar} ${getColor(pct)}${Math.round(pct)}%${time}${RESET}`);
 }
 
 if (rl.seven_day != null) {
   const pct = rl.seven_day.used_percentage ?? 0;
-  const color = getColor(pct);
   const bar = brailleBar(pct);
   const time = rl.seven_day.resets_at ? ` ${formatResetTime(rl.seven_day.resets_at)}` : "";
-  lines.push(`${color}7d ${bar} ${Math.round(pct)}%${time}${RESET}`);
+  lines.push(`7d ${bar} ${getColor(pct)}${Math.round(pct)}%${time}${RESET}`);
 }
 
 if (lines.length > 0) {
