@@ -12,10 +12,11 @@
 
 interface RateLimit {
   used_percentage: number;
-  resets_at?: number;
 }
 
 interface StatusInput {
+  model?: { display_name?: string };
+  context_window?: { used_percentage?: number };
   rate_limits?: {
     five_hour?: RateLimit;
     seven_day?: RateLimit;
@@ -60,19 +61,10 @@ function brailleBar(pct: number): string {
   return bar;
 }
 
-function formatResetTime(resetsAt: number): string {
-  const remaining = resetsAt - Date.now() / 1000;
-  if (remaining <= 0) return "resetting";
-  const h = Math.floor(remaining / 3600);
-  const m = Math.floor((remaining % 3600) / 60);
-  return h > 0 ? `${h}h${m}m` : `${m}m`;
-}
-
-/** Format one rate-limit segment: [DIM label RESET] [color bar RESET] pct% [time] */
-function fmt(label: string, pct: number, resetsAt?: number): string {
+/** Format one segment: [DIM label RESET] [color bar RESET] pct% */
+function fmt(label: string, pct: number): string {
   const p = Math.round(pct);
-  const time = resetsAt ? ` ${formatResetTime(resetsAt)}` : "";
-  return `${DIM}${label}${RESET} ${gradient(pct)}${brailleBar(pct)}${RESET} ${p}%${time}`;
+  return `${DIM}${label}${RESET} ${gradient(pct)}${brailleBar(pct)}${RESET} ${p}%`;
 }
 
 const raw = await Bun.stdin.text();
@@ -84,19 +76,18 @@ try {
   process.exit(0);
 }
 
-const rl = data.rate_limits;
-if (!rl) process.exit(0);
-
 const parts: string[] = [];
 
-if (rl.five_hour != null) {
-  parts.push(fmt("5h", rl.five_hour.used_percentage ?? 0, rl.five_hour.resets_at));
-}
+const modelName = data.model?.display_name;
+if (modelName) parts.push(modelName);
 
-if (rl.seven_day != null) {
-  parts.push(fmt("7d", rl.seven_day.used_percentage ?? 0, rl.seven_day.resets_at));
-}
+const ctx = data.context_window?.used_percentage;
+if (ctx != null) parts.push(fmt("ctx", ctx));
+
+const rl = data.rate_limits;
+if (rl?.five_hour != null) parts.push(fmt("5h", rl.five_hour.used_percentage ?? 0));
+if (rl?.seven_day != null) parts.push(fmt("7d", rl.seven_day.used_percentage ?? 0));
 
 if (parts.length > 0) {
-  process.stdout.write(parts.join("\n") + "\n");
+  process.stdout.write(parts.join(` ${DIM}│${RESET} `));
 }
