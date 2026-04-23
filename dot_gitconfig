@@ -9,7 +9,8 @@
     path = ~/repos/work/.gitconfig
 
 [credential]
-    helper = !gh auth git-credential
+	helper = 
+	helper = !gh auth git-credential
 
 [core]
     editor = nvim
