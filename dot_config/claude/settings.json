@@ -97,11 +97,16 @@
       }
     ]
   },
+  "statusLine": {
+    "type": "command",
+    "command": "bun ~/.config/claude/statusline.ts"
+  },
   "enabledPlugins": {
     "skill-creator@claude-plugins-official": true
   },
   "outputStyle": "Explanatory",
   "language": "ja",
   "alwaysThinkingEnabled": true,
+  "effortLevel": "high",
   "showTurnDuration": true
 }
