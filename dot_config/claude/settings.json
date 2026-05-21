@@ -108,5 +108,6 @@
   "language": "ja",
   "alwaysThinkingEnabled": true,
   "effortLevel": "high",
-  "showTurnDuration": true
+  "showTurnDuration": true,
+  "model": "opusplan"
 }
