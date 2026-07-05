@@ -17,10 +17,12 @@ end
 #   * uv
 fish_add_path "{{ .chezmoi.homeDir }}/.local/bin"
 #   * Homebrew
-{{ if eq .chezmoi.os "linux" }}
+{{ if eq .chezmoi.os "darwin" -}}
+eval (/opt/homebrew/bin/brew shellenv)
+{{ else if eq .chezmoi.os "linux" -}}
 test -d ~/.linuxbrew; and eval (~/.linuxbrew/bin/brew shellenv)
 test -d /home/linuxbrew/.linuxbrew; and eval (/home/linuxbrew/.linuxbrew/bin/brew shellenv)
-{{ end }}
+{{ end -}}
 
 # Environment Variables
 set -gx theme_color_scheme "Catppuccin Macchiato"
