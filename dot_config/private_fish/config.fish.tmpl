@@ -16,6 +16,8 @@ end
 # Paths
 #   * uv
 fish_add_path "{{ .chezmoi.homeDir }}/.local/bin"
+#   * ghcup (GHC/cabal/HLS)
+fish_add_path "{{ .chezmoi.homeDir }}/.ghcup/bin"
 #   * Homebrew
 {{ if eq .chezmoi.os "darwin" -}}
 eval (/opt/homebrew/bin/brew shellenv)

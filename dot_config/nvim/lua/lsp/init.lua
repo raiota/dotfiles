@@ -3,6 +3,7 @@ local navic = require("nvim-navic")
 local lsp_names = {
 	"denols",
 	"gopls",
+	"hls",
 	"jsonls",
 	"lua_ls",
 	"marksman",
