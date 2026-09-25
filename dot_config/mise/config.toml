@@ -1,3 +1,10 @@
+[settings]
+locked_verify_provenance = true
+lockfile = true
+not_found_auto_install = false
+npm.package_manager = "pnpm"
+paranoid = true
+
 [tools]
 bun = "1.4.2"
 deno = "2.9.7"
@@ -12,12 +19,6 @@ stylua = "latest"
 "npm:vscode-langservers-extracted" = "latest"
 "npm:typescript" = "latest"
 "npm:typescript-language-server" = "latest"
-"npm:prettier-plugin-organize-imports" = "latest"
-"npm:fs-extra" = "latest"
 "npm:@redocly/cli" = "latest"
-"npm:marksman" = "latest"
-"npm:@google/gemini-cli" = "latest"
-"npm:@github/copilot" = "latest"
 "npm:@t09tanaka/mcp-simple-voicevox" = "latest"
-"npm:md-to-pdf" = "latest"
 ghcup = "latest"
