@@ -1,0 +1,11 @@
+# 公開直後のバージョンを入れない（分単位）。
+# npm 系の侵害は公開から発覚・yank まで数時間〜数日で収束するため、
+# 3日待つだけで大半の事故を素通りできる。
+minimumReleaseAge: 4320
+minimumReleaseAgeExclude: []
+
+# 信頼レベルが前リリースより下がったら拒否する。
+# trusted publisher で出していた作者が急に証跡なしで publish する
+# = publish トークン盗難の典型パターンを検出できる。
+trustPolicy: no-downgrade
+trustPolicyExclude: []
