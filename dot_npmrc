@@ -1,0 +1,6 @@
+ignore-scripts=true
+
+# 以下2つは deno 2.9+ が読む。npm 自身は無視する（害はない）。
+# deno にはグローバル設定ファイルが存在しないため、これが唯一の手段。
+min-release-age=3
+trust-policy=no-downgrade
