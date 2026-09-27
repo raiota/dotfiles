@@ -18,6 +18,11 @@ end
 fish_add_path "{{ .chezmoi.homeDir }}/.local/bin"
 #   * ghcup (GHC/cabal/HLS)
 fish_add_path "{{ .chezmoi.homeDir }}/.ghcup/bin"
+#   * Rust
+#   * cargo install したバイナリ（cargo-deny / wasm-pack）
+fish_add_path "{{ .chezmoi.homeDir }}/.cargo/bin"
+#   * rustup
+fish_add_path (brew --prefix rustup)/bin
 #   * Homebrew
 {{ if eq .chezmoi.os "darwin" -}}
 eval (/opt/homebrew/bin/brew shellenv)
