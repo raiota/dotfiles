@@ -317,14 +317,9 @@ version = "0.27.0"
 backend = "npm:@fsouza/prettierd"
 specifiers = ["latest"]
 
-[[tools."npm:@github/copilot"]]
-version = "0.0.423"
-backend = "npm:@github/copilot"
-specifiers = ["latest"]
-
-[[tools."npm:@google/gemini-cli"]]
-version = "0.32.1"
-backend = "npm:@google/gemini-cli"
+[[tools."npm:@nulab/bee"]]
+version = "1.1.1"
+backend = "npm:@nulab/bee"
 specifiers = ["latest"]
 
 [[tools."npm:@redocly/cli"]]
@@ -335,26 +330,6 @@ specifiers = ["latest"]
 [[tools."npm:@t09tanaka/mcp-simple-voicevox"]]
 version = "0.1.0"
 backend = "npm:@t09tanaka/mcp-simple-voicevox"
-specifiers = ["latest"]
-
-[[tools."npm:fs-extra"]]
-version = "11.3.4"
-backend = "npm:fs-extra"
-specifiers = ["latest"]
-
-[[tools."npm:marksman"]]
-version = "0.1.0"
-backend = "npm:marksman"
-specifiers = ["latest"]
-
-[[tools."npm:md-to-pdf"]]
-version = "5.2.5"
-backend = "npm:md-to-pdf"
-specifiers = ["latest"]
-
-[[tools."npm:prettier-plugin-organize-imports"]]
-version = "4.3.0"
-backend = "npm:prettier-plugin-organize-imports"
 specifiers = ["latest"]
 
 [[tools."npm:typescript"]]
