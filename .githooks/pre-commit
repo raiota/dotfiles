@@ -1,0 +1,11 @@
+#!/bin/sh
+# This repository is public: block commits whose staged changes contain secrets.
+# Activated by run_once_06-setup-source-repo-hooks.sh.tmpl (core.hooksPath = .githooks).
+# Bypass for a known false positive: add it to .gitleaksignore (or commit with --no-verify).
+
+if ! command -v gitleaks >/dev/null 2>&1; then
+  echo "pre-commit: gitleaks not found, skipping the secret scan (install it with: brew bundle --global)" >&2
+  exit 0
+fi
+
+exec gitleaks git --pre-commit --staged --redact --no-banner --verbose .
