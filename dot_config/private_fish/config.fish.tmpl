@@ -25,10 +25,10 @@ fish_add_path "{{ .chezmoi.homeDir }}/.cargo/bin"
 fish_add_path (brew --prefix rustup)/bin
 #   * Homebrew
 {{ if eq .chezmoi.os "darwin" -}}
-eval (/opt/homebrew/bin/brew shellenv)
+eval (/opt/homebrew/bin/brew shellenv fish)
 {{ else if eq .chezmoi.os "linux" -}}
-test -d ~/.linuxbrew; and eval (~/.linuxbrew/bin/brew shellenv)
-test -d /home/linuxbrew/.linuxbrew; and eval (/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+test -d ~/.linuxbrew; and eval (~/.linuxbrew/bin/brew shellenv fish)
+test -d /home/linuxbrew/.linuxbrew; and eval (/home/linuxbrew/.linuxbrew/bin/brew shellenv fish)
 {{ end -}}
 
 # Environment Variables
