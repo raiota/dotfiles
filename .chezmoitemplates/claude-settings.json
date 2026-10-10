@@ -4,7 +4,8 @@
     "CLAUDE_CODE_AUTO_CONNECT_IDE": "0",
     "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1",
     "CLAUDE_CODE_IDE_SKIP_AUTO_INSTALL": "1",
-    "CLAUDE_CODE_IDE_SKIP_VALID_CHECK": "1"
+    "CLAUDE_CODE_IDE_SKIP_VALID_CHECK": "1",
+    "FORCE_AUTOUPDATE_PLUGINS": "1"
   },
   "permissions": {
     "allow": [
@@ -105,10 +106,5 @@
     "skill-creator@claude-plugins-official": true
   },
   "outputStyle": "Explanatory",
-  "language": "ja",
-  "alwaysThinkingEnabled": true,
-  "effortLevel": "high",
-  "showTurnDuration": true,
-  "model": "opusplan",
-  "editorMode": "vim"
+  "language": "ja"
 }

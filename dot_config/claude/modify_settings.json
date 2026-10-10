@@ -1,0 +1,38 @@
+{{- /* chezmoi:modify-template */ -}}
+{{- /*
+  Claude Code の user settings は Claude Code 自身も書き換える（/model、/config、
+  claude plugin install など）ので、ファイル丸ごとではなくキー単位で管理する。
+
+  - .chezmoitemplates/claude-settings.json のキー: dotfiles が所有し、apply で置き換える。
+    ただし enabledPlugins と extraKnownMarketplaces は 1 件ずつ重ね、
+    /plugin で足した項目は残す。
+  - .chezmoitemplates/claude-settings.defaults.json のキー: 実機に無いときだけ入れる。
+  - それ以外のキー: Claude Code が書いた値をそのまま残す。
+
+  sprig の merge は false を空値として扱い、宣言した false が実機の true に負けるので、
+  set で 1 件ずつ入れる。
+*/ -}}
+{{- $live := dict -}}
+{{- if .chezmoi.stdin | trim -}}
+{{-   $live = fromJson .chezmoi.stdin -}}
+{{- end -}}
+{{- $own := include ".chezmoitemplates/claude-settings.json" | fromJson -}}
+{{- $defaults := include ".chezmoitemplates/claude-settings.defaults.json" | fromJson -}}
+{{- $overlay := list "enabledPlugins" "extraKnownMarketplaces" -}}
+{{- range $key, $value := $own -}}
+{{-   if has $key $overlay -}}
+{{-     $entries := get $live $key | default dict -}}
+{{-     range $id, $entry := $value -}}
+{{-       $_ := set $entries $id $entry -}}
+{{-     end -}}
+{{-     $_ := set $live $key $entries -}}
+{{-   else -}}
+{{-     $_ := set $live $key $value -}}
+{{-   end -}}
+{{- end -}}
+{{- range $key, $value := $defaults -}}
+{{-   if not (hasKey $live $key) -}}
+{{-     $_ := set $live $key $value -}}
+{{-   end -}}
+{{- end -}}
+{{- toPrettyJson $live }}
