@@ -65,6 +65,64 @@
       "Bash(git switch:*)"
     ]
   },
+  "sandbox": {
+    "enabled": true,
+    "excludedCommands": [
+      "gh *",
+      "docker *"
+    ],
+    "filesystem": {
+      "allowWrite": [
+        "~/.npm",
+        "~/Library/pnpm/store",
+        "~/Library/Caches/pnpm",
+        "~/.bun/install/cache",
+        "~/go/pkg/mod",
+        "~/Library/Caches/go-build",
+        "~/.cache/uv",
+        "~/.cargo/registry",
+        "~/.cargo/git"
+      ]
+    },
+    "credentials": {
+      "files": [
+        {
+          "path": "~/.ssh",
+          "mode": "deny"
+        },
+        {
+          "path": "~/.aws",
+          "mode": "deny"
+        },
+        {
+          "path": "~/.config/claude/.claude.json",
+          "mode": "deny"
+        },
+        {
+          "path": "~/.config/claude/.claude.json.backup",
+          "mode": "deny"
+        },
+        {
+          "path": "~/.config/claude/backups",
+          "mode": "deny"
+        }
+      ]
+    },
+    "network": {
+      "allowedDomains": [
+        "github.com",
+        "*.github.com",
+        "*.githubusercontent.com",
+        "registry.npmjs.org",
+        "pypi.org",
+        "files.pythonhosted.org",
+        "proxy.golang.org",
+        "sum.golang.org",
+        "index.crates.io",
+        "static.crates.io"
+      ]
+    }
+  },
   "hooks": {
     "Notification": [
       {
