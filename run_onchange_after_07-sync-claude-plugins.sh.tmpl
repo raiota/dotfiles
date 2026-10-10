@@ -1,0 +1,51 @@
+#!/bin/bash
+# Claude Code のプラグイン宣言（.chezmoitemplates/claude-settings.json の
+# extraKnownMarketplaces と enabledPlugins）を、このマシンの登録状態に揃える。
+#
+# 宣言だけだと Claude Code は、登録済みマーケットプレイスの参照先の切り替えや、
+# 登録済みマーケットプレイスで新しく有効にしたプラグインのインストールをしない。
+# CLI は settings.json の宣言と違う参照先での登録を拒むので、settings.json を
+# 書いたあと（after）に実行する。
+#
+# claude-settings.json が変わったときだけ実行される:
+# {{ include ".chezmoitemplates/claude-settings.json" | sha256sum }}
+{{- $settings := include ".chezmoitemplates/claude-settings.json" | fromJson }}
+
+command -v claude >/dev/null 2>&1 || exit 0
+command -v jq >/dev/null 2>&1 || exit 0
+[ -n "${CI:-}" ] && exit 0
+
+# fish 以外から chezmoi を実行しても ~/.claude を触らないように、config.fish と同じ場所を使う
+export CLAUDE_CONFIG_DIR="${CLAUDE_CONFIG_DIR:-{{ .chezmoi.homeDir }}/.config/claude}"
+settings="${CLAUDE_CONFIG_DIR}/settings.json"
+registered="$(claude plugin marketplace list --json 2>/dev/null)"
+{{- range $name, $marketplace := $settings.extraKnownMarketplaces }}
+{{-   if eq $marketplace.source.source "github" }}
+
+# {{ $name }}: 登録済みの参照先が宣言と違うときだけ登録し直す
+if ! jq -e --arg repo {{ $marketplace.source.repo | quote }} \
+  '.[] | select(.name == {{ $name | quote }} and .repo == $repo)' <<<"${registered}" >/dev/null 2>&1; then
+  if claude plugin marketplace add {{ $marketplace.source.repo | quote }} >/dev/null 2>&1; then
+    # CLI が宣言の項目を書き直して autoUpdate を落とすので、宣言どおりに戻す
+    tmp="$(mktemp "${settings}.XXXXXX")" &&
+      jq --argjson entry {{ $marketplace | toJson | quote }} \
+        '.extraKnownMarketplaces[{{ $name | quote }}] = $entry' "${settings}" >"${tmp}" &&
+      mv "${tmp}" "${settings}"
+  else
+    echo "chezmoi: could not register the {{ $name }} marketplace" >&2
+  fi
+fi
+{{-   end }}
+{{- end }}
+
+# 有効にしたのに入っていないプラグインだけをインストールする
+installed="$(claude plugin list --json 2>/dev/null | jq -r '.[].id' 2>/dev/null)"
+{{- range $id, $enabled := $settings.enabledPlugins }}
+{{-   if $enabled }}
+grep -qxF {{ $id | quote }} <<<"${installed}" ||
+  claude plugin install {{ $id | quote }} --scope user >/dev/null 2>&1 ||
+  echo "chezmoi: could not install {{ $id }}" >&2
+{{-   end }}
+{{- end }}
+
+exit 0
