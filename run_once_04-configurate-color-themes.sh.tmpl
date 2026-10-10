@@ -1,16 +1,13 @@
 #!/usr/bin/env fish
 
 ## [catppuccin/bat: 🦇️ Soothing pastel theme for Bat](https://github.com/catppuccin/bat)
-mkdir -p "$(bat --config-dir)/themes"
+# Pinned to a commit so a later push to catppuccin/bat cannot change what gets installed.
+set -l bat_themes_rev 6810349b28055dce54076712fc05fc68da4b8ec0
+set -l bat_themes_dir "$(bat --config-dir)/themes"
+mkdir -p "$bat_themes_dir"
 
-# wget -P "$(bat --config-dir)/themes" https://github.com/catppuccin/bat/raw/main/themes/Catppuccin%20Latte.tmTheme
-# wget -P "$(bat --config-dir)/themes" https://github.com/catppuccin/bat/raw/main/themes/Catppuccin%20Frappe.tmTheme
-# wget -P "$(bat --config-dir)/themes" https://github.com/catppuccin/bat/raw/main/themes/Catppuccin%20Macchiato.tmTheme
-wget -P "$(bat --config-dir)/themes" https://github.com/catppuccin/bat/raw/main/themes/Catppuccin%20Macchiato.tmTheme
+# Other flavors: Latte, Frappe, Mocha
+wget -O "$bat_themes_dir/Catppuccin Macchiato.tmTheme" \
+  "https://github.com/catppuccin/bat/raw/$bat_themes_rev/themes/Catppuccin%20Macchiato.tmTheme"
 
 bat cache --build
-
-## [catppuccin/alacritty](https://github.com/catppuccin/alacritty)
-mkdir -p "$HOME/.local/share/alacritty/themes/themes"
-wget -O "$HOME/.local/share/alacritty/themes/themes/catppuccin-macchiato.toml" \
-  https://raw.githubusercontent.com/catppuccin/alacritty/main/catppuccin-macchiato.toml
