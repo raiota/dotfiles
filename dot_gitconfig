@@ -36,6 +36,12 @@
 [merge]
     conflictstyle = zdiff3
 
+[safe]
+    # Only use bare repos named explicitly (--git-dir / GIT_DIR). Stops an
+    # embedded bare repo in a cloned tree from supplying config such as
+    # core.fsmonitor to git commands that the prompt runs automatically.
+    bareRepository = explicit
+
 [ghq]
     root = ~/repos/ref
 
