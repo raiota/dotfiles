@@ -3,6 +3,9 @@ name: test
 on:
   - workflow_dispatch
 
+permissions:
+  contents: read
+
 env:
   WORK_GIT_USERNAME: Test User
   WORK_GIT_EMAIL: test@example.com
@@ -14,14 +17,18 @@ jobs:
     runs-on: macos-latest
     timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
       - name: Install dotfiles
-        run: sh -c "$(curl -fsLS chezmoi.io/get)" -- init --apply -S .
+        run: sh -c "$(curl -fsLS --proto '=https' --tlsv1.2 https://get.chezmoi.io)" -- init --apply -S .
   test-on-ubuntu:
     name: test on Ubuntu
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
       - name: Install dotfiles
-        run: sh -c "$(curl -fsLS chezmoi.io/get)" -- init --apply -S .
+        run: sh -c "$(curl -fsLS --proto '=https' --tlsv1.2 https://get.chezmoi.io)" -- init --apply -S .
