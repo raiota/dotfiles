@@ -1,0 +1,10 @@
+version: 2
+updates:
+  # CI で SHA 固定している actions。公開直後のバージョンは避ける（pnpm / bun と同じ 3 日）。
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    cooldown:
+      default-days: 3
+      semver-major-days: 30
