@@ -4,7 +4,6 @@ README.md
 # plugins/ など）と同居しているので、管理するものだけを列挙する
 .config/claude/*
 !.config/claude/CLAUDE.md
-!.config/claude/README.md
 !.config/claude/settings.json
 !.config/claude/statusline.sh
 !.config/claude/hooks
