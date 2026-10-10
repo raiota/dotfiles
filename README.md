@@ -7,7 +7,8 @@
 ## Setup
 
 ```sh
-sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply raiota
+brew install chezmoi
+chezmoi init --apply raiota
 ```
 
 ## Git Configuration
