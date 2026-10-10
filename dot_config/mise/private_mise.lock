@@ -5,7 +5,10 @@ lockfile_version = 2
 [[tools.bun]]
 version = "1.4.2"
 backend = "core:bun"
-specifiers = ["1.4.2"]
+specifiers = [
+    "1.4",
+    "1.4.2",
+]
 
 [tools.bun."platforms.linux-arm64"]
 checksum = "sha256:54328bbc2d9c8e0c9f892c544d66c57a83b84139e34909e5ee81758f1ac8fda7"
@@ -278,11 +281,6 @@ version = "2.20.4"
 backend = "npm:@redocly/cli"
 specifiers = ["latest"]
 
-[[tools."npm:@t09tanaka/mcp-simple-voicevox"]]
-version = "0.1.0"
-backend = "npm:@t09tanaka/mcp-simple-voicevox"
-specifiers = ["latest"]
-
 [[tools."npm:typescript"]]
 version = "5.9.3"
 backend = "npm:typescript"
@@ -385,9 +383,9 @@ url = "https://github.com/JohnnyMorganz/StyLua/releases/download/v2.3.1/stylua-l
 url_api = "https://api.github.com/repos/JohnnyMorganz/StyLua/releases/assets/311297659"
 
 [tools.stylua."platforms.linux-arm64-musl"]
-checksum = "sha256:3a5fef8220f3d482fd9f4c1d2655827c90e42197a11a28da6c7b42e7ddde8be6"
-url = "https://github.com/JohnnyMorganz/StyLua/releases/download/v2.3.1/stylua-linux-aarch64-musl.zip"
-url_api = "https://api.github.com/repos/JohnnyMorganz/StyLua/releases/assets/311297667"
+checksum = "sha256:21908eec45ff9666d4ae72825b81faa7fc4119124ed656eb1d470cbf9ed41bc9"
+url = "https://github.com/JohnnyMorganz/StyLua/releases/download/v2.3.1/stylua-linux-aarch64.zip"
+url_api = "https://api.github.com/repos/JohnnyMorganz/StyLua/releases/assets/311297659"
 
 [tools.stylua."platforms.linux-x64"]
 checksum = "sha256:1b3ca3f577e584e19a0ad2264a0ab87f4133818e35700a094416ca98251ffb4a"

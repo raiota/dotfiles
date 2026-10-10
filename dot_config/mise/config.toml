@@ -1,12 +1,16 @@
 [settings]
 locked_verify_provenance = true
 lockfile = true
+# 公開直後のバージョンは選ばない（pnpm / bun / Dependabot と同じ 3 日）。mise の既定は 24 時間。
+minimum_release_age = "3d"
 not_found_auto_install = false
 npm.package_manager = "pnpm"
 paranoid = true
 
 [tools]
-bun = "1.4.2"
+# ランタイム（bun・go）はマイナーまで書く。パッチは `mise upgrade` で上がり、
+# マイナー以上はここを書き換える。ほかは latest か lts にして、版は mise.lock で固定する。
+bun = "1.4"
 go = "1.27"
 lua-language-server = "latest"
 markdownlint-cli2 = "latest"
@@ -19,6 +23,5 @@ stylua = "latest"
 "npm:typescript" = "latest"
 "npm:typescript-language-server" = "latest"
 "npm:@redocly/cli" = "latest"
-"npm:@t09tanaka/mcp-simple-voicevox" = "latest"
 "npm:@nulab/bee" = "latest"
 ghcup = "latest"
