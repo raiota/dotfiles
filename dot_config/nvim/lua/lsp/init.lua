@@ -60,4 +60,9 @@ vim.diagnostic.config({
 	},
 })
 
-vim.lsp.enable(lsp_names)
+local trust = require("trust")
+if trust.trusted() and vim.iter(vim.fn.argv()):all(trust.trusted) then
+	vim.lsp.enable(lsp_names)
+else
+	vim.notify("Untrusted path: LSP is disabled (see lua/trust.lua)", vim.log.levels.WARN)
+end

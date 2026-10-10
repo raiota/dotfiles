@@ -16,9 +16,13 @@ return {
 			html = { "prettier", stop_after_first = true },
 			css = { "prettier", stop_after_first = true },
 		},
-		format_on_save = {
-			timeout_ms = 500,
-			lsp_format = "fallback",
-		},
+		format_on_save = function(bufnr)
+			if require("trust").trusted(vim.api.nvim_buf_get_name(bufnr)) then
+				return {
+					timeout_ms = 500,
+					lsp_format = "fallback",
+				}
+			end
+		end,
 	},
 }

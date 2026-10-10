@@ -40,6 +40,10 @@ return {
 		end
 
 		function M.lint()
+			if not require("trust").trusted(vim.api.nvim_buf_get_name(0)) then
+				return
+			end
+
 			-- Use nvim-lint's logic first:
 			-- * checks if linters exist for the full filetype first
 			-- * otherwise will split filetype by "." and add all those linters
