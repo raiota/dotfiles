@@ -161,7 +161,7 @@
     "raiota": {
       "source": {
         "source": "github",
-        "repo": "raiota/raiota-slides-skill"
+        "repo": "raiota/claude-plugins"
       },
       "autoUpdate": true
     }
