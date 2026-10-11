@@ -8,3 +8,7 @@ README.md
 !.config/claude/statusline.sh
 !.config/claude/hooks
 !.config/claude/skills
+
+# lazy.nvim の lock は各マシンの実行時の状態なので配らない。
+# 更新は lazy の checker が 30 日ごとに知らせるので、各マシンで :Lazy sync する
+.config/nvim/lazy-lock.json

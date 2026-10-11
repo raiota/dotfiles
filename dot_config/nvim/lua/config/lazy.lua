@@ -25,7 +25,9 @@ require("lazy").setup({
 		lazy = false,
 		version = false,
 	},
-	checker = { enabled = true },
+	-- 更新の確認は 30 日に 1 回だけ（最後に確かめた時刻は lazy の state.json に残る）。
+	-- lazy-lock.json は dotfiles で配らないので、通知が来たら各マシンで :Lazy sync する。
+	checker = { enabled = true, frequency = 30 * 24 * 60 * 60 },
 	performance = {
 		rtp = {
 			disabled_plugins = {

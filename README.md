@@ -17,6 +17,8 @@ Run `dotup` (a fish function) on one machine. It updates the mise tools while sk
 
 Keep mise up to date on every machine: a mise older than the lockfile format refuses to read `mise.lock`.
 
+Neovim plugins are not pinned here. lazy.nvim checks for updates every 30 days and lists them in a notification; run `:Lazy sync` on that machine when it does.
+
 ## Git Configuration
 
 Firstly, applying this project will generate git configuration directories like below.
