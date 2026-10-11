@@ -1,0 +1,100 @@
+# herdr — AI エージェントを並べて動かすためのターミナルマルチプレクサ
+# 既定値と違うところだけを書く。全項目は `herdr --default-config`、
+# 確認は `herdr config check`、反映は `herdr server reload-config`（prefix+shift+r）。
+
+onboarding = false
+
+[theme]
+# 内蔵の catppuccin は Mocha なので、色を Macchiato に差し替えてほかのツールと揃える
+name = "catppuccin"
+
+[theme.custom]
+accent = "#8aadf4"        # blue
+panel_bg = "#1e2030"      # mantle
+active_row_bg = "#24273a" # base
+selection_bg = "#363a4f"  # surface0
+surface0 = "#363a4f"
+surface1 = "#494d64"
+surface_dim = "#24273a"   # base
+overlay0 = "#6e738d"
+overlay1 = "#8087a2"
+text = "#cad3f5"
+subtext0 = "#a5adcb"
+mauve = "#c6a0f6"
+green = "#a6da95"
+yellow = "#eed49f"
+red = "#ed8796"
+blue = "#8aadf4"
+teal = "#8bd5ca"
+peach = "#f5a97f"
+
+[keys]
+# WezTerm の LEADER と同じ Ctrl+A。2 回押すと素の Ctrl+A がペインに届く
+prefix = "ctrl+a"
+
+# WezTerm で使っていたキーのうち、herdr の既定と違うものだけを足す。
+# h/j/k/l の移動、- の上下分割、z のズーム、x で閉じる、c の新規タブ、n/p、1..9、[ のコピーモードは既定で同じ
+split_vertical = ["prefix+v", "prefix+|"]          # 左右に分割
+close_tab = ["prefix+shift+x", "prefix+ampersand"] # タブを閉じる（&）
+
+# エージェント欄の上から n 番目へ移動する。並びを priority にしているので、1 が「いちばん対応が要るもの」
+focus_agent = "prefix+alt+1..9"
+
+# ghq のリポジトリを fzf で選び、workspace として開く（既にあれば移動する）
+[[keys.command]]
+key = "prefix+f"
+type = "popup"
+command = "fish -c hw"
+description = "open a ghq repository as a workspace"
+width = "80%"
+height = "80%"
+
+# popup は「ペインのシェルの」作業ディレクトリで動く。`chezmoi cd` のようにサブシェルへ入っていると
+# そこは元のシェルの場所（~ など）のままなので、ペインの前面で動いているプロセスの場所（foreground_cwd）へ移ってから開く
+
+# フォーカスしているペインの作業ディレクトリで lazygit を開く
+[[keys.command]]
+key = "prefix+alt+g"
+type = "popup"
+command = 'cd "$("$HERDR_BIN_PATH" pane get "$HERDR_ACTIVE_PANE_ID" | jq -r .result.pane.foreground_cwd)"; lazygit'
+description = "lazygit"
+width = "90%"
+height = "90%"
+
+# フォーカスしているペインの作業ディレクトリで hunk を開き、まだコミットしていない変更をまとめて読む。
+# hunk がエラーで終わったとき（git の管理下でないディレクトリなど）は、メッセージを読めるように Enter まで閉じない
+[[keys.command]]
+key = "prefix+alt+d"
+type = "popup"
+command = 'cd "$("$HERDR_BIN_PATH" pane get "$HERDR_ACTIVE_PANE_ID" | jq -r .result.pane.foreground_cwd)"; hunk diff || read -r _'
+description = "hunk diff"
+width = "90%"
+height = "90%"
+
+[ui]
+# タブは名前を聞かずに作る（名前は prefix+shift+t で付ける）
+prompt_new_tab_name = false
+# エージェント欄を workspace 順ではなく、対応が要る順に並べる
+agent_panel_sort = "priority"
+# 状態を色だけでなく形でも区別する
+status_indicators = "symbols"
+# ズーム中はタブバーの右端に ZOOM と出す
+tab_bar_right = [{ type = "zoom" }]
+
+# エージェントが止まった・終わったときの通知は herdr に任せる
+# （Claude Code の hook は、herdr のペインの中では鳴らさない: ~/.config/claude/hooks）
+[ui.toast]
+# Ghostty に通知を出してもらう。Ghostty は「前面にあって、その画面にフォーカスがある」間は
+# バナーを出さないので、ターミナルを見ている間はサイドバーと音、離れている間はバナーになる
+delivery = "terminal"
+
+[experimental]
+# prefix を押してから次のキーまでのあいだ、入力ソースを英数に切り替える
+# （日本語入力のままでも Ctrl+A → c が効く）
+switch_ascii_input_source_in_prefix = true
+# Claude Code に日本語を打つとき、変換候補のウィンドウをカーソルの位置に出す
+reveal_hidden_cursor_for_cjk_ime = true
+cjk_ime_agents = ["claude"]
+
+[terminal]
+kitty_graphics = true
