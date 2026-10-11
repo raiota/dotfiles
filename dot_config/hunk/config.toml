@@ -1,0 +1,8 @@
+# hunk — エージェントが書いた変更をまとめて読むための diff ビューア
+# 既定値と違うところだけを書く。全項目は https://hunk.dev/docs/reference/config/
+
+# ほかのツールと同じ Catppuccin Macchiato にする
+theme = "catppuccin-macchiato"
+
+# 表示を切り替えてから終了しても、このファイルに保存するかどうかを聞かない（設定は dotfiles で管理する）
+prompt_save_view_preferences = false
