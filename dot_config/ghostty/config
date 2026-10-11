@@ -8,12 +8,13 @@ font-feature = -dlig
 font-size = 12
 
 macos-titlebar-style = tabs
+title = "🫛"
 
 background-opacity = 0.8
 background-blur-radius = 20
 
-window-padding-x = 15
-window-padding-y = 15
+window-padding-x = 4
+window-padding-y = 4
 window-padding-balance = true
 
 quick-terminal-position = "center"
@@ -21,3 +22,10 @@ quick-terminal-screen = "main"
 quick-terminal-animation-duration = 0
 
 keybind = global:command+space=toggle_visibility
+
+# 左 Option を Alt として送る（WezTerm の既定と同じ）。herdr の alt を使うキーと、
+# Claude Code の Option を使うショートカットが効くようになる
+macos-option-as-alt = left
+
+# Cmd+← は既定で \x01（Ctrl+A）を送り、herdr の prefix として受け取られてしまうので、Home キーにする
+keybind = cmd+arrow_left=csi:H
