@@ -44,6 +44,7 @@ brew "wget"
 brew "yap"
 brew "zellij"
 
+{{ if eq .chezmoi.os "darwin" -}}
 cask "antigravity"
 cask "arc"
 cask "claude"
@@ -68,3 +69,4 @@ cask "sequel-ace"
 cask "wezterm"
 cask "wireshark-app"
 cask "zed"
+{{ end -}}
