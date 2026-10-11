@@ -8,6 +8,9 @@
     /plugin で足した項目は残す。
   - .chezmoitemplates/claude-settings.defaults.json のキー: 実機に無いときだけ入れる。
   - それ以外のキー: Claude Code が書いた値をそのまま残す。
+  - hooks は dotfiles が所有するが、`herdr integration install` が足した項目
+    （hooks/herdr-agent-state.sh を呼ぶグループ）だけは実機のものを残す。
+    コマンドに絶対パスが入るうえ、herdr の更新で形が変わるので、宣言には書かない。
 
   sprig の merge は false を空値として扱い、宣言した false が実機の true に負けるので、
   set で 1 件ずつ入れる。
@@ -19,6 +22,14 @@
 {{- $own := include ".chezmoitemplates/claude-settings.json" | fromJson -}}
 {{- $defaults := include ".chezmoitemplates/claude-settings.defaults.json" | fromJson -}}
 {{- $overlay := list "enabledPlugins" "extraKnownMarketplaces" -}}
+{{- $herdrHooks := dict -}}
+{{- range $event, $groups := get $live "hooks" | default dict -}}
+{{-   range $group := $groups -}}
+{{-     if contains "herdr-agent-state" (toJson $group) -}}
+{{-       $_ := set $herdrHooks $event (append (get $herdrHooks $event | default list) $group) -}}
+{{-     end -}}
+{{-   end -}}
+{{- end -}}
 {{- range $key, $value := $own -}}
 {{-   if has $key $overlay -}}
 {{-     $entries := get $live $key | default dict -}}
@@ -29,6 +40,10 @@
 {{-   else -}}
 {{-     $_ := set $live $key $value -}}
 {{-   end -}}
+{{- end -}}
+{{- range $event, $groups := $herdrHooks -}}
+{{-   $hooks := get $live "hooks" -}}
+{{-   $_ := set $hooks $event (concat (get $hooks $event | default list) $groups) -}}
 {{- end -}}
 {{- range $key, $value := $defaults -}}
 {{-   if not (hasKey $live $key) -}}

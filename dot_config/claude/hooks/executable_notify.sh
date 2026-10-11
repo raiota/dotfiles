@@ -5,6 +5,10 @@
 #   { "type": "notification", "message": "...", "hook_event_name": "Notification" }
 # Matchers: permission_prompt | idle_prompt | auth_success | elicitation_dialog
 
+# herdr のペインの中では、エージェントが止まった・終わったことを herdr が知らせる
+# （~/.config/herdr/config.toml の [ui.toast] と音）ので、二重に鳴らさない
+[ "${HERDR_ENV:-}" = "1" ] && exit 0
+
 OS="$(uname -s)"
 
 case "$OS" in

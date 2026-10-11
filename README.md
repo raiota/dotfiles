@@ -19,6 +19,18 @@ Keep mise up to date on every machine: a mise older than the lockfile format ref
 
 Neovim plugins are not pinned here. lazy.nvim checks for updates every 30 days and lists them in a notification; run `:Lazy sync` on that machine when it does.
 
+## herdr
+
+Coding agents run in [herdr](https://herdr.dev) inside Ghostty: start or reattach with `herdr`, pick a repository with `Ctrl+A f`, and lay out editor, agent and shell with `hdl`.
+
+On each machine, install herdr's Claude Code hook once so agent sessions resume after a herdr restart, and again after upgrading herdr:
+
+```sh
+herdr integration install claude
+```
+
+`chezmoi apply` keeps the hook entry this adds to Claude Code's `settings.json`.
+
 ## Git Configuration
 
 Firstly, applying this project will generate git configuration directories like below.
