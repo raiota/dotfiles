@@ -1,0 +1,74 @@
+#!/bin/bash
+{{ if eq .chezmoi.os "darwin" -}}
+# macSKK に SKK-JISYO.L を入れて有効にする。
+#
+# 辞書はアプリのコンテナの中に置くが、コンテナは macSKK を初めて起動したときに
+# macOS が作るもので、先に作ると壊れるおそれがある。なのでコンテナができるまでは
+# 何もせず、毎回の apply で確かめる（辞書ファイルがあれば何もしない）。
+#
+# 辞書を置くだけだと macSKK は無効の状態で一覧に足すので、設定の dictionaries にも
+# 有効として書き込む。消して入れ直したいときは辞書ファイルを削除して apply する。
+
+domain="net.mtgto.inputmethod.macSKK"
+container="{{ .chezmoi.homeDir }}/Library/Containers/${domain}"
+dictdir="${container}/Data/Documents/Dictionaries"
+dict="SKK-JISYO.L.gz"
+
+[ -d "/Library/Input Methods/macSKK.app" ] || exit 0
+[ -n "${CI:-}" ] && exit 0
+[ -e "${dictdir}/${dict}" ] && exit 0
+if [ ! -d "${dictdir}" ]; then
+  echo "chezmoi: add macSKK to the input sources once, then run chezmoi apply again to install ${dict}" >&2
+  exit 0
+fi
+command -v jq >/dev/null 2>&1 || exit 0
+
+tmpdir="$(mktemp -d)"
+trap 'rm -rf "${tmpdir}"' EXIT
+
+if ! curl -fsSL -o "${tmpdir}/${dict}" "https://skk-dev.github.io/dict/${dict}"; then
+  echo "chezmoi: could not download ${dict}" >&2
+  exit 0
+fi
+
+# macSKK は辞書の一覧を起動したときにだけ設定から読み、動いている間はメモリの一覧を
+# 設定へ書き戻す。止めても macOS がすぐ起動し直すので、止めて書き換えたあとに
+# もう一度止め、書き換える前に起動し直した macSKK を残さない
+stop_macskk() {
+  killall macSKK 2>/dev/null
+  for _ in $(seq 50); do
+    pgrep -xq macSKK || return 0
+    sleep 0.1
+  done
+}
+
+dicts() {
+  defaults export "${domain}" "${tmpdir}/prefs.plist" &&
+    { plutil -extract dictionaries json -o - "${tmpdir}/prefs.plist" 2>/dev/null || echo '[]'; }
+}
+
+enable_dict() {
+  local json
+  json="$(dicts)" || return 1
+  # encoding 3 は EUC-JP（String.Encoding.japaneseEUC）
+  json="$(jq -c --arg f "${dict}" \
+    '[.[] | select(.filename != $f)] + [{filename: $f, enabled: true, encoding: 3, type: "traditional", saveToUserDict: true}]' \
+    <<<"${json}")" &&
+    plutil -replace dictionaries -json "${json}" "${tmpdir}/prefs.plist" &&
+    defaults import "${domain}" "${tmpdir}/prefs.plist"
+}
+
+# 動いている macSKK はここで無効として一覧に足す
+mv "${tmpdir}/${dict}" "${dictdir}/${dict}"
+sleep 1
+
+for _ in 1 2 3; do
+  stop_macskk
+  enable_dict
+  stop_macskk
+  if dicts | jq -e --arg f "${dict}" 'any(.[]; .filename == $f and .enabled)' >/dev/null; then
+    exit 0
+  fi
+done
+echo "chezmoi: could not enable ${dict} in macSKK; enable it in the macSKK settings" >&2
+{{ end -}}
