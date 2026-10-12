@@ -8,6 +8,10 @@ README.md
 !.config/claude/statusline.sh
 !.config/claude/hooks
 !.config/claude/skills
+# herdr のスキルは `herdr --skill` の出力から作るので、herdr の無いマシンには置かない
+{{ if not (lookPath "herdr") }}
+.config/claude/skills/herdr
+{{ end }}
 
 # ~/.config/herdr にも実行時データ（session.json、ログ、ソケット、プラグインの状態）が
 # 同居するので、設定と自作プラグインだけを管理する
