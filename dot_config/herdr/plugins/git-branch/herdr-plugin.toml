@@ -1,0 +1,25 @@
+# サイドバーの workspace 欄に、ブランチアイコン付きのブランチ名を $git_branch として出す。
+# 行の中には固定の文字を書けず、並べたトークンの間には「 · 」が入るので、アイコンと名前を 1 つの値にまとめて送る。
+# 一度だけ `herdr plugin link ~/.config/herdr/plugins/git-branch` で登録する
+id = "raiota.git-branch"
+name = "Git branch"
+version = "0.1.0"
+min_herdr_version = "0.9.0"
+description = "Report each workspace's git branch with an icon as $git_branch"
+platforms = ["macos", "linux"]
+
+[[startup]]
+command = ["sh", "report.sh"]
+
+# ブランチを切り替えたことを知らせるイベントはないので、見る場所が変わったときと、エージェントが動き終えたときに取り直す
+[[events]]
+on = "workspace.created"
+command = ["sh", "report.sh"]
+
+[[events]]
+on = "pane.focused"
+command = ["sh", "report.sh"]
+
+[[events]]
+on = "pane.agent_status_changed"
+command = ["sh", "report.sh"]

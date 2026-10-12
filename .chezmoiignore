@@ -10,9 +10,12 @@ README.md
 !.config/claude/skills
 
 # ~/.config/herdr にも実行時データ（session.json、ログ、ソケット、プラグインの状態）が
-# 同居するので、設定だけを管理する
+# 同居するので、設定と自作プラグインだけを管理する
 .config/herdr/*
 !.config/herdr/config.toml
+!.config/herdr/plugins
+.config/herdr/plugins/*
+!.config/herdr/plugins/git-branch
 
 # lazy.nvim の lock は各マシンの実行時の状態なので配らない。
 # 更新は lazy の checker が 30 日ごとに知らせるので、各マシンで :Lazy sync する

@@ -78,8 +78,27 @@ prompt_new_tab_name = false
 agent_panel_sort = "priority"
 # 状態を色だけでなく形でも区別する
 status_indicators = "symbols"
-# ズーム中はタブバーの右端に ZOOM と出す
-tab_bar_right = [{ type = "zoom" }]
+# タブバーの右端に、ズーム中の印・フォーカスしているペインのブランチ・日時を出す。
+# サイドバーのブランチは workspace 単位なので、こちらは worktree などでずれうる「いま見ているペイン」のものを出す
+tab_bar_right_separator = " · "
+tab_bar_right = [
+  { type = "zoom" },
+  { type = "command", command = 'b=$(git -C "$HERDR_ACTIVE_PANE_CWD" branch --show-current 2>/dev/null) && [ -n "$b" ] && printf "\356\202\240 %s\n" "$b"', interval_seconds = 5, timeout_seconds = 2 },
+  { type = "datetime", format = "%m/%d(%a) %H:%M" },
+]
+
+# workspace の欄は、名前を太字にし、2 行目のブランチ名を種類で色分けする。1 行あけて読みやすくする。
+# ブランチ名はアイコンを付けるために、組み込みの branch ではなく自作プラグイン（plugins/git-branch）が送る $git_branch を使う
+[ui.sidebar.spaces]
+row_gap = 1
+rows = [
+  ["state_icon", { token = "workspace", bold = true }],
+  [{ token = "$git_branch", fg = "#8087a2", rules = [
+    { equals = "\ue0a0 main", fg = "#6e738d", dim = true },
+    { contains = "feat", fg = "#a6da95" },
+    { contains = "fix", fg = "#ee99a0" },
+  ] }, "git_status"],
+]
 
 # エージェントが止まった・終わったときの通知は herdr に任せる
 # （Claude Code の hook は、herdr のペインの中では鳴らさない: ~/.config/claude/hooks）
