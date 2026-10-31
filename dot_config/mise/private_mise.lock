@@ -225,6 +225,77 @@ version = "0.24.0"
 backend = "npm:markdownlint-cli2"
 specifiers = ["latest"]
 
+[[tools.marksman]]
+version = "2026-02-08"
+backend = "aqua:artempyanykh/marksman"
+specifiers = ["latest"]
+
+[tools.marksman."platforms.linux-arm64"]
+checksum = "sha256:db8e124527f7f8048e3e6c91821b9c52ef173d92c01e47d221bf1337afd962fb"
+checksum_source = "mise-versions"
+url = "https://github.com/artempyanykh/marksman/releases/download/2026-02-08/marksman-linux-arm64"
+url_api = "https://api.github.com/repos/artempyanykh/marksman/releases/assets/352747912"
+
+[tools.marksman."platforms.linux-arm64-musl"]
+checksum = "sha256:db8e124527f7f8048e3e6c91821b9c52ef173d92c01e47d221bf1337afd962fb"
+checksum_source = "mise-versions"
+url = "https://github.com/artempyanykh/marksman/releases/download/2026-02-08/marksman-linux-arm64"
+url_api = "https://api.github.com/repos/artempyanykh/marksman/releases/assets/352747912"
+
+[tools.marksman."platforms.linux-x64"]
+checksum = "sha256:be5098e8213219269c47fc0d916a66fa31ce0602ec967475c722260aabf26087"
+checksum_source = "mise-versions"
+url = "https://github.com/artempyanykh/marksman/releases/download/2026-02-08/marksman-linux-x64"
+url_api = "https://api.github.com/repos/artempyanykh/marksman/releases/assets/352747902"
+
+[tools.marksman."platforms.linux-x64-baseline"]
+checksum = "sha256:be5098e8213219269c47fc0d916a66fa31ce0602ec967475c722260aabf26087"
+checksum_source = "mise-versions"
+url = "https://github.com/artempyanykh/marksman/releases/download/2026-02-08/marksman-linux-x64"
+url_api = "https://api.github.com/repos/artempyanykh/marksman/releases/assets/352747902"
+
+[tools.marksman."platforms.linux-x64-musl"]
+checksum = "sha256:be5098e8213219269c47fc0d916a66fa31ce0602ec967475c722260aabf26087"
+checksum_source = "mise-versions"
+url = "https://github.com/artempyanykh/marksman/releases/download/2026-02-08/marksman-linux-x64"
+url_api = "https://api.github.com/repos/artempyanykh/marksman/releases/assets/352747902"
+
+[tools.marksman."platforms.linux-x64-musl-baseline"]
+checksum = "sha256:be5098e8213219269c47fc0d916a66fa31ce0602ec967475c722260aabf26087"
+checksum_source = "mise-versions"
+url = "https://github.com/artempyanykh/marksman/releases/download/2026-02-08/marksman-linux-x64"
+url_api = "https://api.github.com/repos/artempyanykh/marksman/releases/assets/352747902"
+
+[tools.marksman."platforms.macos-arm64"]
+checksum = "sha256:6a801c17b5ac0dba69787c5282b3b3bd416e66c96253fae098d311c6bbd1833b"
+checksum_source = "mise-versions"
+url = "https://github.com/artempyanykh/marksman/releases/download/2026-02-08/marksman-macos"
+url_api = "https://api.github.com/repos/artempyanykh/marksman/releases/assets/352747961"
+
+[tools.marksman."platforms.macos-x64"]
+checksum = "sha256:6a801c17b5ac0dba69787c5282b3b3bd416e66c96253fae098d311c6bbd1833b"
+checksum_source = "mise-versions"
+url = "https://github.com/artempyanykh/marksman/releases/download/2026-02-08/marksman-macos"
+url_api = "https://api.github.com/repos/artempyanykh/marksman/releases/assets/352747961"
+
+[tools.marksman."platforms.macos-x64-baseline"]
+checksum = "sha256:6a801c17b5ac0dba69787c5282b3b3bd416e66c96253fae098d311c6bbd1833b"
+checksum_source = "mise-versions"
+url = "https://github.com/artempyanykh/marksman/releases/download/2026-02-08/marksman-macos"
+url_api = "https://api.github.com/repos/artempyanykh/marksman/releases/assets/352747961"
+
+[tools.marksman."platforms.windows-x64"]
+checksum = "sha256:a6d05beb08ebe41b0a9f09c98a438540421436fa5531424c22e0bb1d22529705"
+checksum_source = "mise-versions"
+url = "https://github.com/artempyanykh/marksman/releases/download/2026-02-08/marksman.exe"
+url_api = "https://api.github.com/repos/artempyanykh/marksman/releases/assets/352747911"
+
+[tools.marksman."platforms.windows-x64-baseline"]
+checksum = "sha256:a6d05beb08ebe41b0a9f09c98a438540421436fa5531424c22e0bb1d22529705"
+checksum_source = "mise-versions"
+url = "https://github.com/artempyanykh/marksman/releases/download/2026-02-08/marksman.exe"
+url_api = "https://api.github.com/repos/artempyanykh/marksman/releases/assets/352747911"
+
 [[tools.node]]
 version = "24.22.1"
 backend = "core:node"
@@ -287,6 +358,11 @@ specifiers = ["latest"]
 [[tools."npm:@redocly/cli"]]
 version = "2.71.0"
 backend = "npm:@redocly/cli"
+specifiers = ["latest"]
+
+[[tools."npm:pyright"]]
+version = "1.1.414"
+backend = "npm:pyright"
 specifiers = ["latest"]
 
 [[tools."npm:typescript"]]

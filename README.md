@@ -17,6 +17,16 @@ Run `dotup` (a fish function) on one machine. It updates the mise tools while sk
 
 Keep mise up to date on every machine: a mise older than the lockfile format refuses to read `mise.lock`.
 
+Homebrew and uv tools are not locked; update them on each machine:
+
+```sh
+brew upgrade
+brew bundle cleanup --global --force  # uninstall what ~/.Brewfile no longer lists
+uv tool install platformio            # once per machine; later `uv tool upgrade --all`
+```
+
+When an advisory hits a library that many tools bundle (e.g. Brotli, CVE-2026-111497), updating one runtime is not enough. Check the mise tools, `brew upgrade`, apps that ship their own copy (Claude Code, Electron apps), and restart long-running processes that still run the old binary.
+
 Neovim plugins are not pinned here. lazy.nvim checks for updates every 30 days and lists them in a notification; run `:Lazy sync` on that machine when it does.
 
 ## herdr
